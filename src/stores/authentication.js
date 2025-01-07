@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
       // Si l'email est déjà utilisé, retourner un message d'erreur
       return {
         code: false,
-        message: 'Cette email est déjà enregistré dans notre base de données'
+        message: 'Une erreur s\'est produite durant la création de votre compte'
       };
     } else {
       // Sinon, créer un nouvel utilisateur avec un identifiant unique, l'email, le nom d'utilisateur et le mot de passe donnés
@@ -69,21 +69,12 @@ export const useAuthStore = defineStore('auth', () => {
           code: true,
           message: 'Connexion réussie'
         };
-      } else {
-        // Si le mot de passe ne correspond pas, retourner un message d'erreur
-        return {
-          code: false,
-          message: 'Email ou mot de passe incorrect'
-        };
       }
-
-    } else {
-      // Si l'utilisateur n'est pas trouvé, retourner un message d'erreur
-      return {
-        code: false,
-        message: 'Vous n\'existez pas dans notre base de données'
-      };
     }
+    return {
+      code: false,
+      message: 'Email ou mot de passe incorrect'
+    };
   }
 
 

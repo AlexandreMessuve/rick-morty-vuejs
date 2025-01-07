@@ -111,9 +111,14 @@ const updateEmail = (value) => {
     form.email = value;
 }
 
+const updatePassword = (value) => {
+    form.password = value
+}
+
 const updateCheck = (value) => {
     form.checkbox = value;
 }
+
 </script>
 
 <template>
@@ -129,13 +134,14 @@ const updateCheck = (value) => {
                         Votre adresse email
                     </template>
                 </FieldForm>
-                <!-- <label class="form-label" for="email">Votre mail</label>
-                <input class="form-control focus-ring" :class="formClass.email" type="email" name="email" id="email" v-model="form.email"> -->
                 <p class="form-text text-danger" v-if="errors.email">{{ errors.email }}</p>
             </div>
             <div>
-                <label class="form-label" for="password">Votre mot de passe</label>
-                <input class="form-control focus-ring" :class="formClass.password" type="password" name="password" id="password" v-model="form.password">
+                <FieldForm id-input="password" type-input="password" :input-value="form.password" :input-class="formClass.password" @update-value="updatePassword">
+                    <template #label>
+                        Votre mot de passe
+                    </template>
+                </FieldForm>
                 <p class="form-text text-danger" v-if="errors.password">{{ errors.password }}</p>
 
             </div>

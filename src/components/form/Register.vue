@@ -13,6 +13,7 @@ import * as REGEX from '../../constants/regex.js';
 
 // Importation du schéma de validation pour l'inscription
 import registerValidation from '../../yup/registerValidation.js';
+import FieldForm from '@/slots/FieldForm.vue';
 
 // Initialisation du routeur et du magasin d'état pour l'authentification
 const router = useRouter();
@@ -50,6 +51,22 @@ const classForm = reactive({
     password: '',
     confirmPass: '',
 })
+
+const updateEmail = (value)  => {
+    form.email = value;
+}
+
+const updateUsername = (value) => {
+    form.username = value;
+}
+
+const updatePassword = (value) => {
+    form.password = value;
+}
+
+const updateConfirmPass = (value) => {
+    form.confirmPass = value;
+}
 
 // Utilisation de watchEffect pour réagir aux changements de la propriété respStatus
 watchEffect(() => {
@@ -163,29 +180,37 @@ onMounted(() => {
         <form @submit.prevent="beforeSubmit" class="w-50 text-start">
             <div class="row mt-3">
                 <div class="col">
-                    <label for="email" class="form-label">Votre mail</label>
-                    <input class="form-control focus-ring" :class="classForm.email" type="email" name="email" id="email"
-                        v-model="form.email" placeholder="exemple@exemple.fr">
+                    <FieldForm id-input="email" type-input="email" :input-value="form.email" :input-class="classForm.email" @update-value="updateEmail">
+                        <template #label>
+                            Votre adresse email
+                        </template>
+                    </FieldForm>
                     <p class="form-text text-danger" v-if="errors.email">{{ errors.email }}</p>
                 </div>
                 <div class="col">
-                    <label class="form-label" for="username">Votre username</label>
-                    <input minlength="4" class="form-control focus-ring" :class="classForm.username" type="username"
-                        name="username" id="username" v-model="form.username" placeholder="mon super username">
+                    <FieldForm id-input="username" type-input="text" :input-value="form.username" :input-class="classForm.username" @update-value="updateUsername">
+                        <template #label>
+                            Votre username
+                        </template>
+                    </FieldForm>
                     <p class="form-text text-danger" v-if="errors.username">{{ errors.username }}</p>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <label class="form-label" for="password">Votre mot de passe</label>
-                    <input class="form-control focus-ring" :class="classForm.password" type="password" name="password"
-                        id="password" v-model="form.password">
+                    <FieldForm id-input="password" type-input="password" :input-value="form.password" :input-class="classForm.password" @update-value="updatePassword">
+                        <template #label>
+                            Votre mot de passe
+                        </template>
+                    </FieldForm>
                     <p class="form-text text-danger" v-if="errors.password">{{ errors.password }}</p>
                 </div>
                 <div class="col">
-                    <label class="form-label" for="password-reapeat">Repeter votre mot de passe</label>
-                    <input class="form-control focus-ring" :class="classForm.confirmPass" type="password"
-                        name="password-repeat" id="password-repeat" v-model="form.confirmPass">
+                    <FieldForm id-input="password-repeat" type-input="password" :input-value="form.confirmPass" :input-class="classForm.confirmPass" @update-value="updateConfirmPass">
+                        <template #label>
+                            Repeter votre mot de passe
+                        </template>
+                    </FieldForm>
                     <p class="form-text text-danger" v-if="errors.confirmPass">{{ errors.confirmPass }}</p>
                 </div>
                 <span class="form-text">Votre mot de passe doit avoir au minimum 8 caractère dont une majuscule, une
